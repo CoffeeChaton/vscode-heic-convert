@@ -1,8 +1,6 @@
-.eslintcache
 *.cpuprofile
 *.heapprofile
 *.heapsnapshot
 *.vsix
-coverage/
 node_modules/
 dist/
