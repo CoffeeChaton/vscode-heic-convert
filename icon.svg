@@ -1,0 +1,11 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+ <title>HEIC 2 PNG</title>
+
+ <g>
+  <title>just logo</title>
+  <ellipse stroke="null" ry="250.00106" rx="250.00106" id="svg_9" cy="256.00001" cx="256" fill="#2d323b"/>
+  <path transform="rotate(90 256 256)" id="svg_3" d="m256.00002,194.00001c-34.24154,0 -61.99997,27.75843 -61.99997,62c0,34.24144 27.75843,61.99999 61.99997,61.99999c34.24154,0 61.99993,-27.75855 61.99993,-61.99999c0,-34.24157 -27.75839,-62 -61.99993,-62zm-9.96065,103.48632l-15.08506,-15.09818l26.39311,-26.39144l-26.39311,-26.39143l15.08506,-15.08512l41.48132,41.47655l-41.48132,41.48962z" stroke="null" fill="#ded5ff"/>
+  <text transform="matrix(1 0 0 1 0 0)" xml:space="preserve" text-anchor="start" font-family="'Fira Code'" font-size="65" stroke-width="0" id="svg_6" y="148.5" x="80.51315" stroke="#894F3F" fill="#ded5ff">HEIC/HEIF</text>
+  <text transform="matrix(1 0 0 1 0 0)" xml:space="preserve" text-anchor="start" font-family="'Fira Code'" font-size="65" stroke-width="0" id="svg_7" y="413.5" x="100.00975" fill="#ded5ff">PNG/JPEG</text>
+ </g>
+</svg>

@@ -1,0 +1,16 @@
+{
+    "version": "0.2",
+    "ignorePaths": [
+        ".eslintrc.json",
+        "pnpm-lock.yaml"
+    ],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "Chaton",
+        "dprint",
+        "saschazar"
+    ],
+    "ignoreWords": [],
+    "import": []
+}
