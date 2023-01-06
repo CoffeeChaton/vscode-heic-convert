@@ -22,7 +22,7 @@
     "main": "./dist/extension",
     "scripts": {
         "auto_fix": "eslint --fix src",
-        "compile": "tsc -p ./",
+        "compile": "node esbuild.config.js",
         "fmt": "dprint fmt && pnpm run sort_pack",
         "lint": "eslint src",
         "package": "pnpm vsce package --no-dependencies --baseContentUrl https://github.com/CoffeeChaton/vscode-heic-convert --baseImagesUrl https://raw.githubusercontent.com/CoffeeChaton/vscode-heic-convert/master/",
@@ -45,8 +45,15 @@
             "properties": {
                 "heicConvert.statusBar.displayColor": {
                     "type": "string",
-                    "default": "",
+                    "default": "#e783e1",
                     "markdownDescription": "color of [status bar](https://code.visualstudio.com/api/extension-capabilities/extending-workbench), use HTML Color, exp: ```#e783e1``` or ```rgb(255,255,100)```"
+                },
+                "heicConvert.default.quality": {
+                    "type": "integer",
+                    "default": "92",
+                    "minimum": 10,
+                    "maximum": 100,
+                    "markdownDescription": "the jpeg compression quality, between 10 and 100"
                 }
             }
         },
@@ -71,14 +78,13 @@
         "heic-convert": "^1.2.4"
     },
     "devDependencies": {
-        "@swc/core": "^1.3.24",
-        "@types/assert": "^1.5.6",
         "@types/heic-convert": "^1.2.0",
         "@types/node": "^18.11.18",
         "@types/vscode": "^1.74.0",
         "@typescript-eslint/eslint-plugin": "^5.48.0",
         "@typescript-eslint/parser": "^5.48.0",
         "@vscode/vsce": "^2.16.0",
+        "esbuild": "^0.16.14",
         "eslint": "^8.31.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-config-airbnb-typescript": "^17.0.0",

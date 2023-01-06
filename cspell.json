@@ -9,6 +9,8 @@
     "words": [
         "Chaton",
         "dprint",
+        "esbuild",
+        "outdir",
         "saschazar"
     ],
     "ignoreWords": [],
