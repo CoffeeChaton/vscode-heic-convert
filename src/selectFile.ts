@@ -7,20 +7,22 @@ import type { TConfig } from './selectConvertConfig';
 import { selectConvertConfig } from './selectConvertConfig';
 import { statusBarState } from './statusBar';
 
+type TGlobalState = {
+    // defaultUriInput: vscode.Uri | null,
+    defaultUriSave: vscode.Uri | null,
+};
+
+const myModuleState: TGlobalState = { defaultUriSave: null };
+
 async function selectDefaultOrNot(DefaultConfig: TConfig): Promise<boolean | undefined> {
     type TPickByDefault = {
         label: string,
         byDefault: boolean,
     };
+    const label = `0 -> default with settings.json ${JSON.stringify(DefaultConfig)}`;
     const pickByDefault: TPickByDefault | undefined = await vscode.window.showQuickPick<TPickByDefault>([
-        {
-            label: `0 -> default with settings.json ${JSON.stringify(DefaultConfig)}`,
-            byDefault: true,
-        },
-        {
-            label: '1 -> Manual Settings',
-            byDefault: false,
-        },
+        { byDefault: true, label },
+        { byDefault: false, label: '1 -> Manual Settings' },
     ]);
     return pickByDefault?.byDefault;
 }
@@ -43,10 +45,10 @@ export async function selectFile(): Promise<null> {
 
     if (uriList === undefined) return null;
 
-    const saveFolderList: vscode.Uri[] | undefined = await vscode.window.showOpenDialog({
-        canSelectFolders: true,
-        canSelectMany: false,
-    });
+    const saveFolderOpt: vscode.OpenDialogOptions = myModuleState.defaultUriSave === null
+        ? { canSelectFolders: true, canSelectMany: false }
+        : { canSelectFolders: true, canSelectMany: false, defaultUri: myModuleState.defaultUriSave };
+    const saveFolderList: vscode.Uri[] | undefined = await vscode.window.showOpenDialog(saveFolderOpt);
     if (saveFolderList === undefined || saveFolderList.length !== 1) return null;
     const saveFolder: string = saveFolderList[0].fsPath;
 
@@ -60,6 +62,9 @@ export async function selectFile(): Promise<null> {
             outputPath,
         };
     });
+
+    // eslint-disable-next-line prefer-destructuring
+    myModuleState.defaultUriSave = saveFolderList[0];
 
     statusBarState.work = true;
     await HeicConvert(config, pathPairList);
