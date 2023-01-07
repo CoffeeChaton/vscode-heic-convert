@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
-/* eslint no-magic-numbers: ["error", { "ignore": [1,10,100] }] */
+/* eslint no-magic-numbers: ["error", { "ignore": [1,10,92,100] }] */
 import * as vscode from 'vscode';
 
 export type TConfigOLD = Readonly<{
@@ -38,6 +38,7 @@ async function setQuality(format: 'JPEG' | 'PNG'): Promise<number | null> {
     });
     if (quality100Str === undefined) return null;
     if (quality100Str === '100') return 100;
+    if (quality100Str === '92') return 92;
 
     const quality100: number = Number.parseInt(quality100Str, 10);
     return Number.isNaN(quality100) || quality100 < 10 || quality100 > 100

@@ -1,14 +1,39 @@
 import path from 'node:path';
 import * as vscode from 'vscode';
+import { getDefaultConfig } from './configUI';
 import type { TPathPair } from './HeicConvert';
 import { HeicConvert } from './HeicConvert';
 import type { TConfig } from './selectConvertConfig';
 import { selectConvertConfig } from './selectConvertConfig';
 import { statusBarState } from './statusBar';
 
-export async function selectFile(): Promise<0> {
-    const config: TConfig | null = await selectConvertConfig();
-    if (config === null) return 0;
+async function selectDefaultOrNot(DefaultConfig: TConfig): Promise<boolean | undefined> {
+    type TPickByDefault = {
+        label: string,
+        byDefault: boolean,
+    };
+    const pickByDefault: TPickByDefault | undefined = await vscode.window.showQuickPick<TPickByDefault>([
+        {
+            label: `0 -> default with settings.json ${JSON.stringify(DefaultConfig)}`,
+            byDefault: true,
+        },
+        {
+            label: '1 -> Manual Settings',
+            byDefault: false,
+        },
+    ]);
+    return pickByDefault?.byDefault;
+}
+
+export async function selectFile(): Promise<null> {
+    const DefaultConfig: TConfig = getDefaultConfig();
+    const byDefault: boolean | undefined = await selectDefaultOrNot(DefaultConfig);
+    if (byDefault === undefined) return null;
+
+    const config: TConfig | null = byDefault
+        ? DefaultConfig
+        : await selectConvertConfig();
+    if (config === null) return null;
 
     const uriList: vscode.Uri[] | undefined = await vscode.window.showOpenDialog({
         canSelectFiles: true,
@@ -16,13 +41,13 @@ export async function selectFile(): Promise<0> {
         filters: { Images: ['heic', 'heif'] },
     });
 
-    if (uriList === undefined) return 0;
+    if (uriList === undefined) return null;
 
     const saveFolderList: vscode.Uri[] | undefined = await vscode.window.showOpenDialog({
         canSelectFolders: true,
         canSelectMany: false,
     });
-    if (saveFolderList === undefined || saveFolderList.length !== 1) return 0;
+    if (saveFolderList === undefined || saveFolderList.length !== 1) return null;
     const saveFolder: string = saveFolderList[0].fsPath;
 
     const formatLowerCase: string = config.format.toLowerCase();
@@ -39,5 +64,5 @@ export async function selectFile(): Promise<0> {
     statusBarState.work = true;
     await HeicConvert(config, pathPairList);
 
-    return 0;
+    return null;
 }
