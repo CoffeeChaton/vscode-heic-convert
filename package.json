@@ -9,6 +9,8 @@
     "keywords": [
         "vscode",
         "heic",
+        "heif",
+        "image",
         "png"
     ],
     "homepage": "https://github.com/CoffeeChaton/vscode-heic-convert/blob/master/README.md",
@@ -36,7 +38,7 @@
         "commands": [
             {
                 "command": "heic.convert.start",
-                "title": "heic -> png/jpg"
+                "title": "heic/heif -> png/jpg"
             }
         ],
         "configuration": {
@@ -75,12 +77,13 @@
             "explorer/context": [
                 {
                     "command": "heic.convert.start",
-                    "when": "explorerViewletVisible"
+                    "when": "resourceExtname == .heic || resourceExtname == .heif"
                 }
             ],
             "editor/context": [
                 {
-                    "command": "heic.convert.start"
+                    "command": "heic.convert.start",
+                    "when": "explorerViewletVisible && heicConvertExtension.activated"
                 }
             ]
         }

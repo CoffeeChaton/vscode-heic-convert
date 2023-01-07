@@ -12,6 +12,8 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.commands.registerCommand('heic.convert.cancellation.task', cancellationTask),
         vscode.workspace.onDidChangeConfiguration(configChangEvent),
     );
+    // heicConvertExtension.activated
+    void vscode.commands.executeCommand('setContext', 'heicConvertExtension.activated', true);
 }
 
 export function deactivate(): void {
