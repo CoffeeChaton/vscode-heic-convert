@@ -5,10 +5,10 @@
 /* eslint no-magic-numbers: ["error", { "ignore": [1,30,100] }] */
 import convert from 'heic-convert';
 import fs from 'node:fs';
-import { log } from './log';
 import type { TConfig } from './selectConvertConfig';
-import { statusBar, statusBarState } from './statusBar';
+import { log } from './tools/log';
 import { sleep } from './tools/sleep';
+import { statusBar, statusBarState } from './tools/statusBar';
 
 function toBuffer(ab: ArrayBuffer): Buffer {
     const buf: Buffer = Buffer.alloc(ab.byteLength);

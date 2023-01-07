@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { log } from './log';
 import type { TConfig } from './selectConvertConfig';
-import { statusBar } from './statusBar';
+import { log } from './tools/log';
+import { statusBar } from './tools/statusBar';
 
 /**
  * [Configuration example](https://code.visualstudio.com/api/references/contribution-points%5C#Configuration-example)

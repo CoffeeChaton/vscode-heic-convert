@@ -5,7 +5,7 @@ import type { TPathPair } from './HeicConvert';
 import { HeicConvert } from './HeicConvert';
 import type { TConfig } from './selectConvertConfig';
 import { selectConvertConfig } from './selectConvertConfig';
-import { statusBarState } from './statusBar';
+import { statusBarState } from './tools/statusBar';
 
 type TGlobalState = {
     defaultUriInput: vscode.Uri | null,

@@ -2,9 +2,9 @@
 /* eslint-disable no-await-in-loop */
 import * as vscode from 'vscode';
 import { configChangEvent } from './configUI';
-import { log } from './log';
 import { selectFile } from './selectFile';
-import { cancellationTask, statusBar } from './statusBar';
+import { log } from './tools/log';
+import { cancellationTask, statusBar } from './tools/statusBar';
 
 export function activate(context: vscode.ExtensionContext): void {
     context.subscriptions.push(

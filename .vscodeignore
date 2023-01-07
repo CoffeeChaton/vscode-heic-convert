@@ -4,10 +4,12 @@
 .gitattributes
 .gitignore
 .vscode
+*.cpuprofile
 *.vsix
 cspell.json
 dprint.json
 esbuild.config.js
+icon.svg
 node_modules/
 src/
 tsconfig.json
