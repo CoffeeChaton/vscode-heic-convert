@@ -48,12 +48,26 @@
                     "default": "#e783e1",
                     "markdownDescription": "color of [status bar](https://code.visualstudio.com/api/extension-capabilities/extending-workbench), use HTML Color, exp: ```#e783e1``` or ```rgb(255,255,100)```"
                 },
-                "heicConvert.default.quality": {
+                "heicConvert.default.quality100": {
                     "type": "integer",
-                    "default": "92",
+                    "default": 92,
                     "minimum": 10,
                     "maximum": 100,
                     "markdownDescription": "the jpeg compression quality, between 10 and 100"
+                },
+                "heicConvert.default.format": {
+                    "type": "string",
+                    "default": "PNG",
+                    "enum": [
+                        "PNG",
+                        "JPEG"
+                    ],
+                    "markdownDescription": "output format"
+                },
+                "heicConvert.default.ignore": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "if (ignore === true) { not convert this picture }, else {use new picture cover }"
                 }
             }
         },

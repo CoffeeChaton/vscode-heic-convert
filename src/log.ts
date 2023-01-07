@@ -6,6 +6,6 @@ import * as vscode from 'vscode';
  * - ;--------^ padStart -----^ OK - ^--- output
  */
 export const log: vscode.LogOutputChannel = vscode.window.createOutputChannel('heic-convert', { log: true });
-log.info('Initialized "vscode-heic-convert"');
+log.info('Extension active!');
 
 // TODO add: warn format exp

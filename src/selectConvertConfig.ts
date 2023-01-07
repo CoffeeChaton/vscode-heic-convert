@@ -1,11 +1,28 @@
+/* eslint-disable @typescript-eslint/indent */
+/* eslint no-magic-numbers: ["error", { "ignore": [1,10,100] }] */
 import * as vscode from 'vscode';
 
-function validateInput(value: string): vscode.InputBoxValidationMessage | null {
-    if (value === '100') return null;
+export type TConfigOLD = Readonly<{
+    format: 'JPEG' | 'PNG',
+    ignore: boolean,
+    quality100: number,
+}>;
 
-    if ((/^[1-9]\d$/u).test(value)) {
-        return null;
+export type TConfig = Readonly<
+    {
+        format: 'JPEG',
+        ignore: boolean,
+        quality100: number,
+    } | {
+        format: 'PNG',
+        ignore: boolean,
     }
+>;
+
+function validateInput(value: string): vscode.InputBoxValidationMessage | null {
+    if (value === '100') return null; // OK
+    if ((/^[1-9]\d$/u).test(value)) return null; // OK
+
     return {
         message: 'should input 10 ~ 100 integer, like 92 or 100',
         severity: vscode.InputBoxValidationSeverity.Error,
@@ -13,21 +30,19 @@ function validateInput(value: string): vscode.InputBoxValidationMessage | null {
 }
 
 async function setQuality(format: 'JPEG' | 'PNG'): Promise<number | null> {
-    const quality100: string | undefined = await vscode.window.showInputBox({
+    const quality100Str: string | undefined = await vscode.window.showInputBox({
         title: `input quality of "${format}"`,
-        prompt: 'integer of 10 ~ 100 range',
+        prompt: 'int in range(10, 100)',
         placeHolder: '92',
         validateInput,
     });
-    if (quality100 === undefined) return null;
-    if (quality100 === '100') return 1;
+    if (quality100Str === undefined) return null;
+    if (quality100Str === '100') return 100;
 
-    const quality: number = Number.parseInt(quality100, 10);
-    // eslint-disable-next-line no-magic-numbers
-    if (Number.isNaN(quality) || quality < 10 || quality > 100) return null;
-
-    // eslint-disable-next-line no-magic-numbers
-    return quality / 100;
+    const quality100: number = Number.parseInt(quality100Str, 10);
+    return Number.isNaN(quality100) || quality100 < 10 || quality100 > 100
+        ? null
+        : quality100;
 }
 
 async function setIgnore(): Promise<boolean | undefined> {
@@ -55,22 +70,16 @@ async function setFormat(): Promise<'JPEG' | 'PNG' | undefined> {
     };
     const pickFormat: TPickFormat | undefined = await vscode.window.showQuickPick<TPickFormat>([
         {
-            label: 'PNG',
+            label: '0 -> PNG (default)',
             format: 'PNG',
         },
         {
-            label: 'JPEG',
+            label: '1 -> JPEG',
             format: 'JPEG',
         },
     ]);
     return pickFormat?.format;
 }
-
-export type TConfig = {
-    format: 'JPEG' | 'PNG',
-    ignore: boolean,
-    quality: number,
-};
 
 export async function selectConvertConfig(): Promise<TConfig | null> {
     const ignore: boolean | undefined = await setIgnore();
@@ -79,12 +88,16 @@ export async function selectConvertConfig(): Promise<TConfig | null> {
     const format: 'JPEG' | 'PNG' | undefined = await setFormat();
     if (format === undefined) return null;
 
-    const quality: number | null = await setQuality(format);
-    if (quality === null) return null;
+    if (format === 'PNG') {
+        return { format, ignore };
+    }
 
-    return {
-        format,
-        ignore,
-        quality,
-    };
+    const quality100: number | null = await setQuality(format);
+    return quality100 === null
+        ? null
+        : {
+            format,
+            ignore,
+            quality100,
+        };
 }

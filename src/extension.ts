@@ -1,13 +1,16 @@
 /* eslint-disable security/detect-non-literal-fs-filename */
 /* eslint-disable no-await-in-loop */
 import * as vscode from 'vscode';
+import { configChangEvent } from './configUI';
 import { log } from './log';
 import { selectFile } from './selectFile';
-import { statusBar } from './statusBar';
+import { cancellationTask, statusBar } from './statusBar';
 
 export function activate(context: vscode.ExtensionContext): void {
     context.subscriptions.push(
         vscode.commands.registerCommand('heic.convert.start', selectFile),
+        vscode.commands.registerCommand('heic.convert.cancellation.task', cancellationTask),
+        vscode.workspace.onDidChangeConfiguration(configChangEvent),
     );
 }
 
