@@ -12,8 +12,10 @@ import { statusBar, statusBarState } from './tools/statusBar';
 
 function toBuffer(ab: ArrayBuffer): Buffer {
     const buf: Buffer = Buffer.alloc(ab.byteLength);
+    // eslint-disable-next-line @fluffyfox/array/prefer-from
     const view = new Uint8Array(ab);
-    for (let i = 0; i < buf.length; ++i) {
+    const bufLen = buf.length;
+    for (let i = 0; i < bufLen; ++i) {
         buf[i] = view[i];
     }
     return buf;

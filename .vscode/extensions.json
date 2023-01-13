@@ -1,13 +1,12 @@
 {
     // See https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions
-    // for the documentation about the extensions.json format
+    // search @recommended
     "recommendations": [
         "alefragnani.project-manager",
         "bierner.markdown-preview-github-styles",
         "chakrounanas.turbo-console-log",
         "davidanson.vscode-markdownlint",
         "dbaeumer.vscode-eslint",
-        "donjayamanne.githistory",
         "eamodio.gitlens",
         "gruntfuggly.todo-tree",
         "igorsbitnev.error-gutters",

@@ -44,6 +44,8 @@
     ],
     "root": true,
     "rules": {
+        "@fluffyfox/ban-eslint-disable": "off",
+        "@fluffyfox/string/no-simple-template-literal": "off",
         "@typescript-eslint/member-delimiter-style": "off",
         "@typescript-eslint/adjacent-overload-signatures": "warn",
         "@typescript-eslint/array-type": "warn",
