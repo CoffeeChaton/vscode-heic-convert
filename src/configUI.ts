@@ -14,6 +14,7 @@ type TPackConfig = Readonly<{
 const enum EEnum {
     // eslint-disable-next-line no-magic-numbers
     quality92 = 92,
+    // eslint-disable-next-line @typescript-eslint/no-mixed-enums
     head = 'heicConvert',
 }
 
